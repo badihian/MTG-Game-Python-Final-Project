@@ -230,12 +230,12 @@ class whiteWeenie:
     #     for card in self.cardNames:
     #         print(card)
 
-testDeck = whiteWeenie()
-# testDeck.printCardNames()
-print("\n================================")
-testDeck.printDeck()
-print("\n================================\n")
-cardSet = sorted(set(testDeck.cardNames))
-print(f"There are {len(testDeck.cardNames)} cards in your deck:")
-for name in cardSet:
-    print(f"{testDeck.cardNames.count(name):0>2} of '{name}'")
+# testDeck = whiteWeenie()
+# # testDeck.printCardNames()
+# print("\n================================")
+# testDeck.printDeck()
+# print("\n================================\n")
+# cardSet = sorted(set(testDeck.cardNames))
+# print(f"There are {len(testDeck.cardNames)} cards in your deck:")
+# for name in cardSet:
+#     print(f"{testDeck.cardNames.count(name):0>2} of '{name}'")
