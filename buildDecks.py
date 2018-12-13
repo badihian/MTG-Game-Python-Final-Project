@@ -186,6 +186,9 @@ class Card:
         print(f"Color Identity: {self.showColorIdentity()}")
         print(f"Colors: {self.showColors()}")
         print("\n")
+    
+    def __str__(self):
+        return self.name
         
 
 class whiteWeenie:
@@ -215,6 +218,9 @@ class whiteWeenie:
         for name in self.cardNames:
             self.cards.append(Card(name))
             shuffle(self.cards)
+
+    def popCard(self):
+        return self.cards.pop()
 
     def printCardNames(self):
         for card in self.cardNames:

@@ -94,14 +94,14 @@ def legionsLanding(board, player):
     board.addCard(vampire, player)
 
 def lifelink(damage, player):
-    player.addHealth(damage)
+    player.addLife(damage)
 
 def adantoVanguardPower(card):
     card.addStats(4)
 
 def adantoVanguardIndest(card, player):
     card.addEffect("Indestructible")
-    player.subtractHealth(4)
+    player.subtractLife(4)
 
 def benalishMarshal(board, player):
     for card in board.activeCards:
