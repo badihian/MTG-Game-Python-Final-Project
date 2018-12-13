@@ -8,24 +8,72 @@ with open("JSON/AllCards.json", "r") as mtgJSON:
 with open("JSON/scryfall-default-cards.json", "r") as scryfallJSON:
     scryString = json.load(scryfallJSON)
 
+class Token:
+
+    def __init__(self, name, cardType, colorIdentity, power, toughness, text, effect=None):
+        self.name = name
+        self.types = [cardType]
+        self.power = power
+        self.toughness = toughness
+        self.text = text
+        self.colorIdentity = colorIdentity
+        # self.imageURL = None
+        self.effect = []
+        if effect != None:
+            self.effect.append(effect)
+
+    def showName(self):
+        return self.name
+    
+    def showTypes(self):
+        return self.types
+    
+    def showPower(self):
+        return self.power
+    
+    def showToughness(self):
+        return self.toughness
+    
+    def showText(self):
+        return self.text
+
+    def showEffect(self):
+        return self.effect
+    def addEffect(self, effect):
+        self.effect.append(effect)
+    
+    def addStats(self, power=0, toughness=0):
+        print(f"Power before: {self.showPower()}")
+        print(f"Toughness before: {self.showToughness()}")
+        self.power += power
+        self.toughness += toughness
+        print(f"Power after: {self.showPower()}")
+        print(f"Toughness after: {self.showToughness()}")
+
+
 class Card:
 
     def __init__(self, name):
         self.name = name
-        self.types = None
+        self.types = []
         self.cmc = None
         self.manaCost = None
-        self.colors = None
-        self.colorIdentity = None
+        self.colors = []
+        self.colorIdentity = []
+        self.power = None
+        self.toughness = None
         self.text = None
         self.imageURL = None
+        self.effect = []
+        self.loreCounter = 0
         self.getCard()
 
     def showName(self):
         return self.name
 
     def getTypes(self):
-        self.types = mtgString[self.name]['types']
+        for cardType in mtgString[self.name]['types']:
+            self.types.append(cardType)
     def showTypes(self):
         return self.types
 
@@ -43,7 +91,8 @@ class Card:
             return "No Mana Cost"
     
     def getColors(self):
-        self.colors = mtgString[self.name]['colors']
+        for color in mtgString[self.name]['colors']:
+            self.colors.append(color)
     def showColors(self):
         if self.colors != None:
             return self.colors
@@ -51,12 +100,30 @@ class Card:
             return "No Colors"
     
     def getColorIdentity(self):
-        self.colorIdentity = mtgString[self.name]['colorIdentity']
+        if "colorIdentity" in mtgString[self.name]:
+            for colorID in mtgString[self.name]['colorIdentity']:
+                self.colorIdentity.append(colorID)
     def showColorIdentity(self):
         if self.colorIdentity != None:
             return self.colorIdentity
         else:
             return "No Color Identity"
+    
+    def getPower(self):
+        if "power" in mtgString[self.name]:
+            self.power = int(mtgString[self.name]['power'])
+        else:
+            self.power = "No Power"
+    def showPower(self):
+        return self.power
+    
+    def getToughness(self):
+        if "toughness" in mtgString[self.name]:
+            self.toughness = int(mtgString[self.name]['toughness'])
+        else:
+            self.toughness = "No Toughness"
+    def showToughness(self):
+        return self.toughness
 
     def getText(self):
         self.text = mtgString[self.name]['text']
@@ -78,11 +145,26 @@ class Card:
         # self.imageURL = mtgString[self.name]['imageName']
     def showImageURL(self):
         return self.imageURL
+
+    def addEffect(self, effect):
+        self.effect.append(effect)
+    def showEffect(self):
+        return self.effect
+    
+    def addStats(self, power=0, toughness=0):
+        print(f"Power before: {self.showPower()}")
+        print(f"Toughness before: {self.showToughness()}")
+        self.power += power
+        self.toughness += toughness
+        print(f"Power after: {self.showPower()}")
+        print(f"Toughness after: {self.showToughness()}")
     
     def getCard(self):
         self.getTypes()
         self.getCMC()
         self.getImageURL()
+        self.getPower()
+        self.getToughness()
         if 'manaCost' in mtgString[self.name]:
             self.getManaCost()
         if 'text' in mtgString[self.name]:
@@ -98,6 +180,8 @@ class Card:
         print(f"CMC: {self.showCMC()}")
         print(f"Image URL: {self.showImageURL()}")
         print(f"Mana Cost: {self.showManaCost()}")
+        print(f"Power: {self.showPower()}")
+        print(f"Toughness: {self.showToughness()}")
         print(f"Text: {self.showText()}")
         print(f"Color Identity: {self.showColorIdentity()}")
         print(f"Colors: {self.showColors()}")
