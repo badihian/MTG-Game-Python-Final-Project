@@ -5,15 +5,19 @@ class Card:
 
     def __init__(self, name, types):
         self.name = name
-        self.types = types
+        self.types = None
         self.cmc = None
         self.manaCost = None
         self.colors = None
+        self.colorIdentity = None
         self.text = None
-        self.imageName = None
+        self.imageURL = None
 
     def showName(self):
         return self.name
+
+    def getTypes(self):
+        self.types = jsonString[self.name]['types']
     def showTypes(self):
         return self.types
 
@@ -31,16 +35,33 @@ class Card:
         self.colors = jsonString[self.name]['colors']
     def showColors(self):
         return self.colors
+    
+    def getColorIdentity(self):
+        self.colorIdentity = jsonString[self.name]['colorIdentity']
+    def showColorIdentity(self):
+        return self.colorIdentity
 
     def getText(self):
         self.text = jsonString[self.name]['text']
     def showText(self):
         return self.text
     
-    def getImageName(self):
-        self.imageName = jsonString[self.name]['imageName']
-    def showImageName(self):
-        return self.imageName
+    def getImageURL(self):
+        self.imageURL = jsonString[self.name]['imageName']
+    def showImageURL(self):
+        return self.imageURL
+    
+    def getCard(self):
+        self.getTypes()
+        self.getCMC()
+        if 'manaCost' in jsonString[self.name]:
+            self.getManaCost()
+        if 'text' in jsonString[self.name]:
+            self.getText()
+        if 'colorIdentity' in jsonString[self.name]:
+            self.getColorIdentity()
+        if 'colors' in jsonString[self.name]:
+            self.getColors()
 
 
 
