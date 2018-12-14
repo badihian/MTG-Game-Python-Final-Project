@@ -161,6 +161,7 @@ __version__ = "5.0"
 #     Added Entry boxes.
 
 import time, os, sys
+from PIL import ImageTk
 
 try:  # import as appropriate for 2.x vs. 3.x
    import tkinter as tk
@@ -881,8 +882,17 @@ class Image(GraphicsObject):
         self.anchor = p.clone()
         self.imageId = Image.idCount
         Image.idCount = Image.idCount + 1
-        if len(pixmap) == 1: # file name provided
+        # print(f"str(type(pixmap)): {str(type(pixmap[0]))}")
+        # PILclass = "<class 'PIL.Image.Image'>"
+        # print(f"str(type(pixmap)) == <class 'PIL.Image.Image'>: {str(type(pixmap[0])) == PILclass}")
+        if str(type(pixmap[0])) == "<class 'PIL.Image.Image'>": # file name provided
+            self.img = ImageTk.PhotoImage(pixmap[0])
+            # print(f"PIXMAP[0] = {pixmap[0]}")
+            # print(f"type(self.img) in PIL = {type(self.img)}")
+        elif len(pixmap) == 1:
+            # print(f"PIXMAP[0] = {pixmap[0]}")
             self.img = tk.PhotoImage(file=pixmap[0], master=_root)
+            # print(f"type(self.img) in len == 1 = {type(self.img)}")
         else: # width and height provided
             width, height = pixmap
             self.img = tk.PhotoImage(master=_root, width=width, height=height)
@@ -893,8 +903,12 @@ class Image(GraphicsObject):
     def _draw(self, canvas, options):
         p = self.anchor
         x,y = canvas.toScreen(p.x,p.y)
-        self.imageCache[self.imageId] = self.img # save a reference  
-        return canvas.create_image(x,y,image=self.img)
+        self.imageCache[self.imageId] = self.img # save a reference
+        print(f"SELF.IMG = {type(self.img)}")  
+        if str(type(self.img)) == "<class 'tkinter.PhotoImage'>":
+            return canvas.create_image(x,y,image=self.img)
+        else:
+            return canvas.create_image(x,y,image=self.img)
     
     def _move(self, dx, dy):
         self.anchor.move(dx,dy)

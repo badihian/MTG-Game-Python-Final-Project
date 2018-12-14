@@ -1,4 +1,7 @@
 import json
+from PIL import Image
+import io
+import graphics
 from urllib import request
 from random import shuffle
 
@@ -187,6 +190,16 @@ class Card:
         print(f"Colors: {self.showColors()}")
         print("\n")
     
+    def displayCard(self, x, y):
+        imageURL = self.showImageURL()
+        # print(imageURL)
+        raw_data = request.urlopen(imageURL).read()
+        image = Image.open(io.BytesIO(raw_data))
+        image = image.resize((97, 142), Image.ANTIALIAS)
+        # print(type(image))
+        image = graphics.Image(graphics.Point(x, y), image)
+        return image
+    
     def __str__(self):
         return self.name
         
@@ -217,7 +230,8 @@ class whiteWeenie:
 
         for name in self.cardNames:
             self.cards.append(Card(name))
-            shuffle(self.cards)
+        
+        shuffle(self.cards)
 
     def popCard(self):
         return self.cards.pop()

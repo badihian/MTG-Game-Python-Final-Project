@@ -22,16 +22,16 @@ with open("scryfall-default-cards.json", "r") as scryfallJSON:
 # Canvas.pack()
 # ====================================
 
-root = Tk()
-root.geometry('500x500')
-root.title("Magic the Gathering!")
+# root = Tk()
+# root.geometry('500x500')
+# root.title("Magic the Gathering!")
 # top = Toplevel()
 # frame = Frame( width = 500, height = 500)
 # frame.pack()
 
-imageCount = 0
-photos = []
-i = 0
+# imageCount = 0
+# photos = []
+# i = 0
 
 
 # ----------------------------------------------------------------
