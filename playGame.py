@@ -11,14 +11,9 @@ computer = playerLib.Player("Computer")
 player1.initialDraw()
 computer.initialDraw()
 
-# def displayHand(player):
-player1.showHand()
-# player1.sortHand()
-# player1.showHand()
-
-board.drawImage(player1.showHand())
 board.displayLife(player1)
 board.displayLife(computer)
+board.drawImage(player1.showHand())
 
 board.win.getMouse()
 board.exit()

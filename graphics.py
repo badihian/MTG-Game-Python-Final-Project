@@ -882,17 +882,11 @@ class Image(GraphicsObject):
         self.anchor = p.clone()
         self.imageId = Image.idCount
         Image.idCount = Image.idCount + 1
-        # print(f"str(type(pixmap)): {str(type(pixmap[0]))}")
-        # PILclass = "<class 'PIL.Image.Image'>"
-        # print(f"str(type(pixmap)) == <class 'PIL.Image.Image'>: {str(type(pixmap[0])) == PILclass}")
+        # modified to allow PIL images
         if str(type(pixmap[0])) == "<class 'PIL.Image.Image'>": # file name provided
             self.img = ImageTk.PhotoImage(pixmap[0])
-            # print(f"PIXMAP[0] = {pixmap[0]}")
-            # print(f"type(self.img) in PIL = {type(self.img)}")
         elif len(pixmap) == 1:
-            # print(f"PIXMAP[0] = {pixmap[0]}")
             self.img = tk.PhotoImage(file=pixmap[0], master=_root)
-            # print(f"type(self.img) in len == 1 = {type(self.img)}")
         else: # width and height provided
             width, height = pixmap
             self.img = tk.PhotoImage(master=_root, width=width, height=height)
@@ -904,7 +898,6 @@ class Image(GraphicsObject):
         p = self.anchor
         x,y = canvas.toScreen(p.x,p.y)
         self.imageCache[self.imageId] = self.img # save a reference
-        print(f"SELF.IMG = {type(self.img)}")  
         if str(type(self.img)) == "<class 'tkinter.PhotoImage'>":
             return canvas.create_image(x,y,image=self.img)
         else:

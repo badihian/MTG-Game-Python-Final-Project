@@ -43,19 +43,9 @@ class Player:
         else:
             y = 650
         x = (1322/2) - ((len(self.hand)-1)*50)
-        print(f"X EQUALS = {x}")
         for card in self.hand:
-            print(card)
             images.append(card.displayCard(x, y))
-            print(type(card.displayCard(x, y)))
             x += 100
-            # imageURL = card.showImageURL()
-            # print(imageURL)
-            # raw_data = request.urlopen(imageURL).read()
-            # image = PIL.Image.open(io.BytesIO(raw_data))
-            # image = image.resize((97, 142), PIL.Image.ANTIALIAS)
-            # image = graphics.Image(graphics.Point(x, 250), image)
-            # x += 142
         return images
 
     def getHandTypes(self):

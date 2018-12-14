@@ -245,11 +245,6 @@ class whiteWeenie:
         for card in self.cards:
             card.showCard()
 
-    
-    # def __str__(self):
-    #     for card in self.cardNames:
-    #         print(card)
-
 # testDeck = whiteWeenie()
 # # testDeck.printCardNames()
 # print("\n================================")
